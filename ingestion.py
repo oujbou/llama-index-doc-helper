@@ -30,7 +30,7 @@ if __name__ == "__main__":
     print("Going to ingest pinecone documentation ...")
     UnstructuredReader = download_loader("UnstructuredReader")
     dir_reader = SimpleDirectoryReader(
-        input_dir="./llamaindex-docs-tmp",
+        input_dir="./llamaindex-docs",
         file_extractor={".html": UnstructuredReader()},
     )
     documents = dir_reader.load_data()
@@ -52,9 +52,8 @@ if __name__ == "__main__":
     )
     nodes = Settings.node_parser.get_nodes_from_documents(documents=documents)
 
-    index_name = "llamaindex-doc-helper"
     pinecone_index = pinecone.Index(
-        index=index_name,
+        index="llamaindex-doc-helper-tmp",
         api_key=os.environ.get("PINECONE_API_KEY"),
         host="https://llamaindex-doc-helper-fxwsgnk.svc.aped-4627-b74a.pinecone.io",
     )
